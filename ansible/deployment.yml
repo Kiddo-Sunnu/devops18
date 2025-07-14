@@ -1,12 +1,12 @@
 ---
-- hosts: aws_ec2
+- hosts: aws_ec2     #PLUGIN NAME
   become: yes
   connection: ssh
-  user: ec2-user
+  user: ec2-user   #WHEN WE'RE TAKING PEMFILE DEFAULT USER WILL BE THIS ec2-user ONLY WHILE WE CREATING AN INSTANCE
 
   vars:
-    ansible_ssh_private_key_file: "/etc/ansible/lastone.pem"
-    ansible_ssh_user: "ec2-user"
+    ansible_ssh_private_key_file: "/etc/ansible/Rakesh1.pem" #PEMFILE PATH WHICH MEANS BASED ON THIS PEMFILE(Rakesh1.pem) SSH CONNECTION WILL BE ESTABLISHED
+    ansible_ssh_user: "ec2-user"  #FROM ec2-user THE ACTION WILL BE PERFORMED
 
   tasks:
     - name: install web server
@@ -20,13 +20,13 @@
 
     - name: Delete existing directory
       file:
-        path: /var/www/
-        state: absent
+        path: /var/www/  #/var/www/html IS WEBSERVER DEFAULT PATH
+        state: absent  #I'M DELETING html FILE IN THIS PATH(/var/www)
 
 
     - name: get the source code from github
       git:
         repo: "https://github.com/devops0014/staticsite-docker.git"
-        dest: /var/www/
+        dest: /var/www/  #I'M KEEPING MY REPOSITORY(staticsite-docker) SOURCE CODE IN THIS PATH WHICH MEANS MY APPLICATION WILL BE DEPLOYED
         update: yes
-        version: master
+        version: master  #IT MEANS THE SOURCE CODE PRESENT IN master BRANCH
